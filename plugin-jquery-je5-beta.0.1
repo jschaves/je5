@@ -30,6 +30,7 @@
                 c=document.getElementById(this.id);
                 var je5=c.getContext("2d");
                 je5.beginPath();
+                
                 if(d.fillStyle){
                     je5.fillStyle=d.fillStyle;
                 }
@@ -42,21 +43,21 @@
                     je5.shadowOffsetX=d.shadow_ox;
                     je5.shadowOffsetY=d.shadow_oy;
                     d.shadow_c=false;
-                }else{
-                    je5.shadowColor=false;
                 }
                 if(d.lineWidth){
                     je5.lineWidth=d.lineWidth;
                     d.lineWidth=false;
-                }else{
-                    je5.lineWidth=false;
                 }
-                if(d.globalAlpha){
-                    je5.globalAlpha=d.globalAlpha;
-                    d.globalAlpha=1;
-                }else{
-                    je5.globalAlpha=1;
-                }
+                if(d.rotate){
+                    je5.rotate(d.rotate);
+                    d.rotate=false;
+                }    
+                
+                if(d.traslate_x &&  d.traslate_y) {
+                    je5.translate(d.traslate_x, d.traslate_y);
+                    d.traslate_x=false;
+                    d.traslate_y=false;
+                }               
                 switch(d.draw){
                     case 'rectangle':
                         je5.rect(d.x, d.y, d.width, d.height);
@@ -90,7 +91,6 @@
                     break;
                     case 'oval':
                         je5.save();
-                        je5.translate(d.traslate_x, d.traslate_y);
                         je5.scale(d.scale_x, d.scale_y);
                         je5.arc(d.x, d.y, d.r, 0, 2 * Math.PI, false);
                         je5.restore();                    
@@ -163,11 +163,11 @@
                 if(d.closePath){
                     je5.closePath();
                     d.closePath=false;
-                 } 
+                } 
                 if(d.fillStyle || grd){
                     je5.fill();
                     d.fillStyle=false;
-                    grd=false;
+    				grd=false;
                 }
                 if(d.strokeStyle){
                     je5.stroke();
@@ -176,4 +176,4 @@
             }
         });
     }
-})(jQuery); 
+})(jQuery);
