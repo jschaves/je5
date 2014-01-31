@@ -25,7 +25,7 @@ Audio, video, webcam
 
 Code example WebCam
 
-
+<pre>
 &lt;!DOCTYPE html&gt;
 &lt;html&gt;
 	&lt;head&gt;
@@ -68,3 +68,4 @@ Code example WebCam
 		&lt;/script&gt;		
 	&lt;/body&gt;
 &lt;/html&gt;
+</pre>
