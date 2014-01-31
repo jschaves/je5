@@ -11,7 +11,7 @@ Section "Media"
 Audio, video, webcam
 
 Code example WebCam
-
+<a href="http://je5.es/plugin-jquery-je5-media-section/jquery-je5-media-plugin-jquery-je5-media-webcam-examples-html.html"><h3>Demo "Media" WebCam je5</h3></a>
 <pre>
 &lt;!DOCTYPE html&gt;
 &lt;html&gt;
