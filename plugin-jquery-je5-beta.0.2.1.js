@@ -23,6 +23,20 @@
 (function($){
     $.fn.je5 = function(options){
         return this.each(function(){
+			//Functions WEBCAM
+			//Check the different engines that support
+			function userMedia() {
+				return !!(navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia);
+			}
+			//If getUserMedia the stream we collect is displayed.
+			function ok(stream) {
+				cam.src = window.URL.createObjectURL(stream);
+			}
+			//Error alert
+			function errors(e) {
+				throw new errors('Error when booting the web cam');
+			}			
+			
             if(options){
                 d = $.extend(options);
             }
@@ -293,6 +307,78 @@
 						}
 					}
 					audio_je5 = false;
+				}
+			} else if(d.sort == 'webcam'){
+				var v = false;
+				var a = false;
+				var snap = [];
+				if(d.video) {
+					v = true
+				} 
+				if(d.audio) {
+					a = true
+				}
+				if(d.controls) {
+					webcam_je5 = $(this).attr('controls', true);
+				}				
+				if(d.width) {
+					webcam_je5 = $(this).attr('width', d.width);						
+				}
+				if(d.height) {
+					webcam_je5 = $(this).attr('height', d.height);						
+				}	
+				if(d.muted) {
+					webcam_je5 = $(this).attr('muted', true);						
+				}
+				if(d.autoplay) {
+					webcam_je5 = $(this).attr('autoplay', true);						
+				}
+				
+				if(d.id) {
+					var cam = document.getElementById(d.id); 
+					//warns if UserMedia is supported by the browser
+					if(userMedia()) {
+						console.log('getUserMedia is supported on your browser');
+					} else {
+						alert('getUserMedia is not supported on your browser');
+					}
+					//Contain possible objects used by each browser
+					navigator.getUserMedia  = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
+					window.URL = window.URL || window.webkitURL;
+					//We check if there getUserMedia and if not launched a errors
+					if(navigator.getUserMedia) {
+						navigator.getUserMedia({
+							video:v,
+							audio:a,
+							controls:c
+						}, ok, errors);
+					} else {
+						errors();
+					}
+				} else {
+					alert('Need an id');
+				}
+				if(d.capture) {
+					$(document).ready(function() {				
+						 $('#'+d.btton_id).click(function() {
+							if(d.video_in && d.video_out && d.scale) {
+								var video  = document.getElementById(d.video_in);
+								var output = document.getElementById(d.video_out);
+								var w = video.videoWidth * d.scale;
+								var h = video.videoHeight * d.scale;
+								var canvas = document.createElement('canvas');
+								canvas.width  = w;
+								canvas.height = h;
+								var ctx = canvas.getContext('2d');
+								ctx.drawImage(video, d.x, d.y, w, h);
+								snap.unshift(canvas);
+								output.innerHTML = '';
+								output.appendChild(snap[0]);
+							} else {
+								alert('An id of video and output and scale is necessary');
+							}
+						});
+					});						
 				}
 			}
         });
