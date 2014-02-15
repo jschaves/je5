@@ -33,8 +33,8 @@
 				cam.src = window.URL.createObjectURL(stream);
 			}
 			//Error alert
-			function errors(e) {
-				throw new errors('Error when booting the web cam');
+			function errors() {
+				alert('Error when booting the web cam');
 			}			
 			
             if(options){
