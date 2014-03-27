@@ -35,11 +35,52 @@
 			//Error alert
 			function errors() {
 				alert('Error when booting the web cam');
-			}			
+			}
+			//animate
+			function animation() {
+				//informs the browser that you want to make an animation
+				window.requestAnimationFrame = function() {
+					return window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.msRequestAnimationFrame || window.oRequestAnimationFrame ||
+					function(f) {
+						window.setTimeout(f,1e3/60);
+					}
+				}();
+				
+				img.src=d.img;
+				//non stop animation
+				(function renderAnimation() {
+					window.requestAnimationFrame(renderAnimation);
+					je5.clearRect(0, 0, d.width, d.height);
+					je5.fillStyle = d.fillStyle;
+					je5.fillRect(0, 0, d.width, d.height);
+					je5.drawImage(img, d.x, d.y, d.width, d.height);
+									
+					if(d.tox == 'left') {
+						if(d.x > d.lxmin) {	
+							d.x -= d.shiftx;
+						}
+					} else if(d.tox == 'right') {
+						if(d.x < d.lxmore) {					
+							d.x += d.shiftx;	
+						} 
+					}
+					
+					if(d.toy == 'up') {
+						if(d.y > d.lymin) {
+							d.y -= d.shifty;
+						}
+					} else if(d.toy == 'down') {
+						if(d.y < d.lymore) {
+							d.y += d.shifty;
+						}
+					}					
+				}());							
+			}
 			
             if(options){
                 d = $.extend(options);
             }
+			
             if(d.sort=='canvas'){
                 c=document.getElementById(this.id);
                 var je5=c.getContext("2d");
@@ -187,6 +228,9 @@
                     je5.stroke();
                     d.strokeStyle=false;
                 }
+				if(d.sliding) {
+					animation();
+				}
 			} else if(d.sort == 'media'){
 				if($(this)[0].tagName == 'VIDEO') {
 					if(d.link){
