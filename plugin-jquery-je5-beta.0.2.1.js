@@ -35,16 +35,16 @@
 			function errors() {
 				alert('Error when booting the web cam');
 			}
+			//Functions Animate
 			//animate
 			function animation() {
 				//informs the browser that you want to make an animation
 				window.requestAnimationFrame = function() {
 					return window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.msRequestAnimationFrame || window.oRequestAnimationFrame ||
 					function(f) {
-						window.setTimeout(f,1e3/60);
+						window.setTimeout(f, 1e3/60);
 					}
 				}();
-				
 				img.src=d.img;
 				//non stop animation
 				(function renderAnimation() {
@@ -75,12 +75,30 @@
 					}					
 				}());							
 			}
-			
-            if(options){
+			//create tags
+			function makeTags(tag, attrs, type) {
+				if(type == 'svg') {
+					var element = document.createElementNS('http://www.w3.org/2000/svg', tag);
+				} else {
+					var element = document.createElement(tag);
+				}
+				for (var k in attrs) {
+					element.setAttribute(k, attrs[k]);
+				}
+				return element;
+			}
+			//conver Object to attributes
+			function converObjectAttr(name, attr_) {
+				for (var k in attr_) {
+					$(name).attr(k, attr_[k]);
+				}
+			}		
+				
+            if(options) {
                 d = $.extend(options);
             }
-			
-            if(d.sort=='canvas'){
+			//type canvas
+			if(d.sort=='canvas'){
                 c=document.getElementById(this.id);
                 var je5=c.getContext("2d");
                 je5.beginPath();
@@ -230,155 +248,30 @@
 				if(d.sliding) {
 					animation();
 				}
-			} else if(d.sort == 'media'){
-				if($(this)[0].tagName == 'VIDEO') {
-					if(d.link){
-						var nLinks = d.link.split(',').length;
-						if(d.codecs) {
-							var nCodecs = d.codecs.split(',');
-						}
-						if(nLinks == 1) {
-							var format = d.link.split('.').pop(-1);
-							if(
-								format == 'mp4' || 
-								format == 'webm' || 
-								format == 'ogg' ||
-								format == 'ogv'
-							) {
-								tipe = 'video';
-							}
-							if(d.codecs) {
-								video_je5 = $(this).attr('codecs', d.codecs);
-							}
-							video_je5 = $(this).attr('src', d.link);
-							video_je5 = $(this).attr('tipe', tipe+'/'+format);					
-						} if(nLinks > 1) {	
-							var nl = d.link.split(',');
-							for(a = 0; a < nLinks; a++) {
-								var format = nl[a].split('.').pop(-1);
-								b=a+1;
-								if(format == 'mp4' || format == 'webm' || format == 'ogg') {
-									tipe = 'video';
-								}
-								if(nCodecs) {
-									var c = 'codecs="'+nCodecs[a]+'"';
-								}
-								video_je5 = $(this).append('<source tipe="'+tipe+'/'+format+'" '+c+' src="'+nl[a]+'">');
-							}
-						}
-						if(d.auto) {
-							video_je5 = $(this).prop('autoplay', true);
-						}
-						if(d.img){
-							video_je5 = $(this).attr('poster', d.img);
-						}
-						if(d.width) {
-							video_je5 = $(this).attr('width', d.width);						
-						}
-						if(d.height) {
-							video_je5 = $(this).attr('height', d.height);						
-						}
-						if(d.muted) {
-							video_je5 = $(this).prop('muted', true);
-						}	
-						if(d.controls) {
-							video_je5 = $(this).prop('controls', true);
-						}
-						if(d.loop) {
-							video_je5 = $(this).prop('loop', true);
-						}
-						if(d.preload) {
-							video_je5 = $(this).prop('preload', d.preload);
-						}					
-						if(d.alert) {
-							video_je5 = $(this).append(d.alert);
-						}
+			//type media
+			} else if(d.sort.media) {
+				//media video
+				if(d.sort.media == 'video') {
+					$(this).append(makeTags('source', d.att.source, 'source'));
+					converObjectAttr($(this), d.att.video);
+					if(d.att.alert) {
+						$(this).append(d.att.alert);
 					}
-					video_je5 = false;
-				} else if($(this)[0].tagName == 'AUDIO') {
-					if(d.link){
-						var nLinks = d.link.split(',').length;
-						if(d.codecs) {
-							var nCodecs = d.codecs.split(',');
-						}
-						if(nLinks == 1) {
-							var format = d.link.split('.').pop(-1);
-							if(format == 'mp3' || format == 'acc' || format == 'ogg') {
-								tipe = 'audio';
-							}
-							if(d.codecs) {
-								audio_je5 = $(this).attr('codecs', d.codecs);
-							}
-							audio_je5 = $(this).attr('src', d.link);
-							audio_je5 = $(this).attr('tipe', tipe+'/'+format);					
-						} if(nLinks > 1) {	
-							var nl = d.link.split(',');
-							for(a = 0; a < nLinks; a++) {
-								var format = nl[a].split('.').pop(-1);
-								b=a+1;
-								if(
-									format == 'mp3' || 
-									format == 'm4a' || 
-									format == 'acc' || 
-									format == 'ogg' || 
-									format == 'oga' || 
-									format == 'webma' || 
-									format == 'wav'
-								) {
-									tipe = 'audio';
-								}
-								audio_je5 = $(this).append('<source tipe="'+tipe+'/'+format+'" src="'+nl[a]+'">');
-							}
-						}
-						if(d.auto) {
-							audio_je5 = $(this).prop('autoplay', true);
-						}
-						if(d.muted) {
-							audio_je5 = $(this).prop('muted', true);
-						}	
-						if(d.controls) {
-							audio_je5 = $(this).prop('controls', true);
-						}
-						if(d.loop) {
-							audio_je5 = $(this).prop('loop', true);
-						}
-						if(d.preload) {
-							audio_je5 = $(this).prop('preload', d.preload);
-						}					
-						if(d.alert) {
-							audio_je5 = $(this).append(d.alert);
-						}
+					d = false;	
+				//media audio
+				} else if(d.sort.media == 'audio') {
+					$(this).append(makeTags('source', d.att.source, 'source'));
+					converObjectAttr($(this), d.att.video);
+					if(d.att.alert) {
+						$(this).append(d.att.alert);
 					}
-					audio_je5 = false;
-				}
-			} else if(d.sort == 'webcam'){
-				var v = false;
-				var a = false;
-				var snap = [];
-				if(d.video) {
-					v = true
-				} 
-				if(d.audio) {
-					a = true
-				}
-				if(d.controls) {
-					webcam_je5 = $(this).attr('controls', true);
-				}				
-				if(d.width) {
-					webcam_je5 = $(this).attr('width', d.width);						
-				}
-				if(d.height) {
-					webcam_je5 = $(this).attr('height', d.height);						
-				}	
-				if(d.muted) {
-					webcam_je5 = $(this).attr('muted', true);						
-				}
-				if(d.autoplay) {
-					webcam_je5 = $(this).attr('autoplay', true);						
-				}
-				
-				if(d.id) {
-					var cam = document.getElementById(d.id); 
+					d = false;
+				//media capture webcam
+				} else if(d.sort.media == 'capture'){//captute instant webcam
+					var snap = [];
+					var cam_id = $(this).attr('id');
+					converObjectAttr($(this), d.att);
+					var cam = document.getElementById(cam_id); 
 					//warns if UserMedia is supported by the browser
 					if(userMedia()) {
 						console.log('getUserMedia is supported on your browser');
@@ -391,38 +284,58 @@
 					//We check if there getUserMedia and if not launched a errors
 					if(navigator.getUserMedia) {
 						navigator.getUserMedia({
-							video:v,
-							audio:a,
-							controls:c
+							video:d.att.video,
+							audio:d.att.audio,
+							controls:d.att.controls
 						}, ok, errors);
 					} else {
 						errors();
 					}
-				} else {
-					alert('Need an id');
-				}
-				if(d.capture) {
-					$(document).ready(function() {				
-						 $('#'+d.btton_id).click(function() {
-							if(d.video_in && d.video_out && d.scale) {
-								var video  = document.getElementById(d.video_in);
-								var output = document.getElementById(d.video_out);
-								var w = video.videoWidth * d.scale;
-								var h = video.videoHeight * d.scale;
+					//capture image
+					if(d.capture) {	
+						 $('#'+d.capture.btton_id).click(function() {
+							if(d.capture.video_out && d.capture.scale) {
+								var image_in  = document.getElementById(cam_id);
+								var output = document.getElementById(d.capture.video_out);
+								var w = image_in.videoWidth * d.capture.scale;
+								var h = image_in.videoHeight * d.capture.scale;
 								var canvas = document.createElement('canvas');
 								canvas.width  = w;
 								canvas.height = h;
 								var ctx = canvas.getContext('2d');
-								ctx.drawImage(video, d.x, d.y, w, h);
+								ctx.drawImage(image_in, d.capture.x, d.capture.y, w, h);
 								snap.unshift(canvas);
 								output.innerHTML = '';
 								output.appendChild(snap[0]);
 							} else {
 								alert('An id of video and output and scale is necessary');
 							}
-						});
-					});						
+						});					
+					}
 				}
+			//type svg
+			} else if(d.sort == 'svg'){			
+				if(d.draw) {
+					d.app = $(this).append(makeTags(d.draw.type, d.draw.att, 'svg'));
+					if(d.draw.type == 'text' && d.draw.att.id && d.draw.text) {
+						$('#'+d.draw.att.id).append(d.draw.text);
+					} 
+					if(d.draw.type == 'tspan' && d.draw.att.id) {
+						$('#'+d.draw.att.id).append(d.text);
+					}
+				}
+			//type streaming
+			} else if(d.sort == 'streaming'){			
+				var express = require('express'), http = require('http');
+				var app = express();
+				var server = http.createServer(app);
+				server.listen(d.ip);
+				var io = require('socket.io').listen(server);
+				io.sockets.on('connection',function(socket){
+					socket.on('newFrame',function(img){
+						io.sockets.emit('setFrame',img);
+					});
+				});
 			}
         });
     }
