@@ -6,10 +6,10 @@ Plugin jquery to simplify the use of html5
 
 The aim of this project is to make the interaction between javascript, jquery and HTML5 easier. We have started working with canvas, but our purpose is to expand it to all kind of components of HTML5, like sockets, etc.
 
-Section "Canvas"
-Section "SVG"
-Section "Animate"
-Section "Media"
+<p>Section "Canvas"</p>
+<p>Section "SVG"</p>
+<p>Section "Animate"</p>
+<p>Section "Media"</p>
 
 Audio, video, webcam
 
