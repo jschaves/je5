@@ -316,13 +316,15 @@
 			//type svg
 			} else if(d.sort == 'svg'){			
 				if(d.draw) {
-					d.app = $(this).append(makeTags(d.draw.type, d.draw.att, 'svg'));
-					if(d.draw.type == 'text' && d.draw.att.id && d.draw.text) {
-						$('#'+d.draw.att.id).append(d.draw.text);
+					app = $(this).append(makeTags(d.draw.type, d.draw.att, 'svg'));
+					//append atributes
+					if(d.draw.app) {
+						$(d.draw.type).append(makeTags(d.draw.app.type, d.draw.app.att, 'svg'));
 					} 
-					if(d.draw.type == 'tspan' && d.draw.att.id) {
-						$('#'+d.draw.att.id).append(d.text);
-					}
+					//append text
+					if(d.draw.app_) {
+						$(d.draw.type).append(d.draw.app_);
+					} 					
 				}
 			//type streaming
 			} else if(d.sort == 'streaming'){			
