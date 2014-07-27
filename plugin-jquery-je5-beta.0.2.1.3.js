@@ -2,7 +2,7 @@
 // Author: Juan Chaves
 // Email: juan.cha63@gmail.com
 // URL: http://www.je5.es
-// Version: 0.0.1
+// Version: 0.2.1.3
 // Plugin-jquery-je5
 ///////////////////
 //////////////////
@@ -79,6 +79,9 @@
 			function makeTags(tag, attrs, type) {
 				if(type == 'svg') {
 					var element = document.createElementNS('http://www.w3.org/2000/svg', tag);
+					if(attrs['xlink:href']) {
+						element.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', attrs['xlink:href']);
+					}
 				} else {
 					var element = document.createElement(tag);
 				}
@@ -92,13 +95,287 @@
 				for (var k in attr_) {
 					$(name).attr(k, attr_[k]);
 				}
-			}		
+			}
+			
+			//functions stats
+			//Calculate position coordenates pie
+			function calculate_position(this_, dates, x1, y1, linetox, linetoy, a, arc) {
+				//calcule case draw %   
+				var casea = Math.atan((y1 - linetox) / (x1 - linetox));
+				var caseb = Math.atan((y2 - linetox) / (x2 - linetox));
+				var casec;
+				//Case a
+				if(
+					(
+						x1 < linetox &&
+						y1 >= linetox
+					) || (
+						x1 < linetox &&
+						y1 < linetox
+					)
+				) {
+				casea = casea + Math.PI;
+				}
+				//case b
+				if(
+					(
+						x2 < linetox &&
+						y2 >= linetox
+					) || (
+						x2 < linetox &&
+						y2 < linetox
+					)
+				) {
+					caseb = caseb + Math.PI;
+				}
 				
+				//case a
+				if(casea < 0) {
+					casea = casea + 2*Math.PI;
+				}
+				//case b
+				if(caseb < 0) {
+					caseb = caseb + 2*Math.PI;
+				}
+				//case c
+				casec = (casea + caseb) / 2;
+				if(casea > caseb) {
+					casec = casec + Math.PI;
+				}
+				//get coordenates x y
+				x_ = ((Math.cos(casec)) * (linetoy / dates['text-perc'].position)) + linetox;
+				y_ = ((Math.sin(casec)) * (linetoy / dates['text-perc'].position)) + linetox;   
+			}
+			//render element svg
+			function render_element(this_, element, order) {
+				$(this_).je5({
+					sort:'svg',
+					draw:{
+						type:'g',
+						att:{
+							id:element,
+							'render-order':order
+						}
+					}
+				}); 
+			}
+			//if text percent
+			function text_perc(this_, a, d) {
+				//draw % in pie	
+				$('#text_perc').je5({
+					sort:'svg',
+					draw:{
+						type:'text',
+						att:{
+							id:'text' + a,
+							x:x_, 
+							y:y_
+						},
+						app_:d.perc[a] + '%'
+					}
+				}); 
+				//add rest attrs
+				$('#text' + a).attr(d['text-perc'].att);
+			}
+			//if squares 
+			function squares(this_, a, separation, attrs, arc_fill, type) {	
+				//draw square in pie	
+				$('#' + type).je5({
+					sort:'svg',
+					draw:{
+						type:'rect',
+						att:{
+							id:type + a,
+						}
+					}
+				}); 
+				//increment position x
+				var sep = separation;
+				if(a > 0) {
+					attrs.y += sep;
+				}
+				//Add rest attrs
+				$('#' + type + a).attr(attrs).attr('fill', arc_fill);	
+			}	
+			//if balloon 
+			function balloon(this_, a, d, type) {	
+				//draw square in pie	
+				$('#' + type).je5({
+					sort:'svg',
+					draw:{
+						type:'rect',
+						att:{
+							id:type + a,
+							display:'none'
+						}
+					}
+				}); 
+				//Add rest attrs
+				$('#' + type + a).attr(d.att);	
+			}	
+			//if balloon 
+			function text_balloon(this_, a, d, t, ts, type) {
+				$('#' + type).je5({
+					sort:'svg',
+					draw:{
+						type:'text',
+						att:{
+							id:type + a,
+							display:'none'
+						},
+						app_:t
+					}
+				}); 
+				//Add rest attrs
+				d.x = d.x + ts.x;
+				d.y = d.y + ts.y;
+				$('#' + type + a).attr(d);	
+			}				
+			//if text titles
+			function text_titles(this_, text_titles, a, text_attrs, porc) {
+				//draw square in pie	
+				$('#text_titles').je5({
+					sort:'svg',
+					draw:{
+						type:'text',
+						att:{
+							id:'text-titel' + a,
+						},
+						app_:porc + '% ' + text_attrs
+					}
+				}); 
+				//increment position x
+				var sep = text_titles.separation;
+				if(a > 0) {
+					text_titles.att.y += sep;
+				}
+				//add rest attrs
+				$('#text-titel' + a).attr(text_titles.att);	
+			}
+
+			//pie
+			var x1, x2, y1, y2, x_, y_;
+			function arcs(this_, dates, attrs){
+				//Get total value porcent array
+				var linetox = 200 * attrs.size;
+				var linetoy = 195 * attrs.size;
+
+				var t = dates.perc.reduce(
+							function(ac, th) {
+								return th + ac; 
+							}, 0);
+				//Get the areas from the sector Angle array
+				var sector = dates.perc.map(
+								function(value) { 
+									return 360 * value / t; 
+								});
+				//Start and End of Angle
+				var ini = -90;
+				var end = -90;
+				
+				//render position element svg
+				render_element(this_, 'g', 1);	
+				//if squares render element
+				if(dates.squares) {	
+					render_element('#g', 'squares', 1);
+				}								
+				//render path
+				render_element('#g', 'path');			
+				//if text percent render element
+				if(dates['text-perc']) {
+					render_element('#g', 'text_perc', 1);
+				}	
+				//if balloon render element
+				if(dates.balloon) {
+					render_element('#g', 'balloon', 1);
+					render_element('#g', 'text_balloon', 1);
+					render_element('#g', 'comments_balloon', 1);
+				}	
+				//if text titles render element
+				if(dates['text-titles']) {
+					render_element('#g', 'text_titles', 1);
+				}		
+				//each path 
+				for (a = 0; a < sector.length; a++){
+					ini = end;
+					end = ini + sector[a];
+					//Carculate coordinates
+					x1 = parseInt(Math.round(linetox + linetoy * Math.cos(Math.PI * ini / 180)));
+					y1 = parseInt(Math.round(linetox + linetoy * Math.sin(Math.PI * ini / 180)));
+					x2 = parseInt(Math.round(linetox + linetoy * Math.cos(Math.PI * end / 180)));
+					y2 = parseInt(Math.round(linetox + linetoy * Math.sin(Math.PI * end / 180)));
+					
+					if(end - ini > 180) {
+						position = 1;
+					} else {
+						position = 0;					
+					}
+					//Path values
+					var d = 'M' + linetox + ',' + linetox + ' L' + x1 + ', ' + y1 + ' A' + linetoy + ',' + linetoy + ' 0 ' + position + ',1 ' + x2 + ', ' + y2 + ' z';
+					
+					var arc = new Object();
+				
+					$.each(dates.attrs, function(index, value) {
+						arc[index] = value[a];
+					}); 
+					//if colors are not custom
+					if(!dates.attrs.fill) {
+						var c_ = parseInt(a / sector.length * 360);
+						arc.fill = 'hsl(' + c_ + ', 50%, 50%)';
+					}
+					//add atributes arc
+					arc.d = d;
+					arc.id = 'path' + a;
+					arc.class = 'path';
+					arc.ball = a;
+					arc['pointer-events'] = 'all';
+					arc.onmouseover = 'over_path(' + a + ', 1, \'path\')';
+					arc.onmouseout = 'over_path(' + a + ', 0, \'path\')';
+					//create pie portion
+					var arc_ = makeTags('path', arc, 'svg');
+					//add path
+					$('#' + 'path').append(arc_)
+					//calculate position text percent
+					if(dates['text-perc']) {
+						calculate_position(this_, dates, x1, y1, linetox, linetoy, a, arc);
+						text_perc(this_, a, dates)
+					}					
+					//if squares 
+					if(dates.squares) {	
+						squares(this_, a, dates.squares.separation, dates.squares.att, arc.fill, 'squares');
+					}					
+					//if text titles
+					if(dates['text-titles']) {
+						text_titles(this_, dates['text-titles'], a, dates.attrs.titles[a], dates.perc[a])
+					}					
+					//if balloon
+					if(dates.balloon) {
+						calculate_position(this_, dates, x1, y1, linetox, linetoy, a, arc);
+						dates.balloon.att.x = x_;
+						dates.balloon.att.y = y_;
+						dates.balloon.att.onmouseover = 'over_path(' + a + ', 1, \'#balloon\')';
+						dates.balloon.att.onmouseout = 'over_path(' + a + ', 0, \'#balloon\')';
+						balloon(this_, a, dates.balloon, 'balloon');
+						dates.balloon.text.x = x_;
+						dates.balloon.text.y = y_;
+						dates.balloon.text.onmouseover = 'over_path(' + a + ', 1, \'#text_balloon\')';
+						dates.balloon.text.onmouseout = 'over_path(' + a + ', 0, \'#text_balloon\')';
+						text_balloon(this_, a, dates.balloon.text, dates.attrs.titles[a], dates.balloon.text_separation, 'text_balloon');
+						dates.balloon.comments.x = x_;
+						dates.balloon.comments.y = y_;	
+						dates.balloon.comments.onmouseover = 'over_path(' + a + ', 1, \'#comments_balloon\')';
+						dates.balloon.comments.onmouseout = 'over_path(' + a + ', 0, \'#comments_balloon\')';
+						text_balloon(this_, a, dates.balloon.comments, dates.attrs.comments[a], dates.balloon.comments_separation, 'comments_balloon');
+					}
+				}	
+			}
+			//end stats
+
             if(options) {
                 d = $.extend(options);
             }
 			//type canvas
-			if(d.sort=='canvas'){
+			if(d.sort == 'canvas'){
                 c=document.getElementById(this.id);
                 var je5=c.getContext("2d");
                 je5.beginPath();
@@ -316,29 +593,39 @@
 			//type svg
 			} else if(d.sort == 'svg'){			
 				if(d.draw) {
-					app = $(this).append(makeTags(d.draw.type, d.draw.att, 'svg'));
+					$(this).append(makeTags(d.draw.type, d.draw.att, 'svg'));
 					//append atributes
 					if(d.draw.app) {
 						$(d.draw.type).append(makeTags(d.draw.app.type, d.draw.app.att, 'svg'));
 					} 
 					//append text
 					if(d.draw.app_) {
-						$(d.draw.type).append(d.draw.app_);
+						$('#' + d.draw.att.id).append(d.draw.app_);
 					} 					
 				}
-			//type streaming
-			} else if(d.sort == 'streaming'){			
-				var express = require('express'), http = require('http');
-				var app = express();
-				var server = http.createServer(app);
-				server.listen(d.ip);
-				var io = require('socket.io').listen(server);
-				io.sockets.on('connection',function(socket){
-					socket.on('newFrame',function(img){
-						io.sockets.emit('setFrame',img);
-					});
-				});
+			//type stats
+			} else if(d.sort == 'stats'){
+				switch(d.draw.type){
+					case 'pie':
+						if(d.draw.att.dates) {
+							arcs(this, d.draw.att.dates, d.draw.att); 
+						}
+                    break;
+				}		
 			}
         });
     }
 })(jQuery);
+//functions stats
+//over path
+function over_path(b, x, type) {
+	if(type == 'path' && x == 1) {
+		$('#balloon' + b + ', #text_balloon' + b + ', #comments_balloon' + b).attr('display', 'block');	
+	} else if(type != 'path' && x == 1) {
+		$('#balloon' + b + ', #text_balloon' + b + ', #comments_balloon' + b).attr('display', 'block');
+	} else if(type == 'path' && x == 0) {
+		$('#balloon' + b + ', #text_balloon' + b + ', #comments_balloon' + b).attr('display', 'none');
+	} else if(type != 'path' && x == 0) {
+		$('#balloon' + b + ', #text_balloon' + b + ', #comments_balloon' + b).attr('display', 'none');
+	}			
+}
