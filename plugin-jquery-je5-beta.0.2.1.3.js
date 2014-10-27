@@ -369,6 +369,63 @@
 					}
 				}	
 			}
+			
+			//end pie
+			function bar(this_, dates, attrs){
+				var spacing = attrs.spacing;//spacing between bars
+				for(a = 0; a < attrs.percentage.length; a++) {//total bar count
+					var c = attrs.color[a];//bar color
+					var title = attrs.text[a];//Text data
+					var i_ = attrs.id[a];//id bar
+					var s_ = attrs.textstyle;//styles bars
+					var idtext_ = attrs.idtext;//svg text id
+					var tra_ = attrs.transform;//Rotate the bars. rotate to any values ​​(0, 0, 0)
+					if(attrs.orientation == 'v') {//orientation vertical (v) 
+						var x_ = attrs.x;
+						var y_ = spacing;//spacing between bars
+						var t_ = attrs.thickness;
+						var p_ = attrs.percentage[a];
+					} else if(attrs.orientation == 'h') {//orientation horizontal (h)
+						var x_ = spacing;//spacing between bars
+						var y_ = attrs.y;//y position
+						var t_ = attrs.percentage[a];//Percentage of each bar. the total must be 100
+						var p_ = attrs.thickness;//thickness of the bars					
+					}
+					$(this_).je5({
+						sort:'svg',
+						draw:{
+							type:'rect',
+							att:{
+								id:c,
+								x:x_,
+								y:y_,
+								height:t_,
+								width:p_,
+								ry:attrs.ry,
+								rx:attrs.rx,
+								transform:tra_,
+								title:title + ' ' + attrs.percentage[a],
+								style: 'fill:' + c + ';' + attrs.style
+							}
+						}	
+					});
+					$('#' + idtext_).je5({
+						sort:'svg',
+						draw:{
+							type:'text',
+							att:{
+								id:i_,
+								x:attrs.thickness,
+								y:attrs.percentage[a],
+								style:'fill:' + c + ';' + s_
+							},	
+							app_:title + ' - ' + attrs.percentage[a]//append text
+						}
+					});
+					spacing += attrs.spacing;//increase the separation between bars
+				}
+			}
+			//end bar			
 			//end stats
 
             if(options) {
@@ -609,6 +666,11 @@
 					case 'pie':
 						if(d.draw.att.dates) {
 							arcs(this, d.draw.att.dates, d.draw.att); 
+						}
+                    break;
+					case 'bar':
+						if(d.draw.att) {
+							bar(this, d.draw.att.dates, d.draw.att); 
 						}
                     break;
 				}		
