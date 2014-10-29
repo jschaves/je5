@@ -99,7 +99,7 @@
 			
 			//functions stats
 			//Calculate position coordenates pie
-			function calculate_position(this_, dates, x1, y1, linetox, linetoy, a, arc) {
+			function calculate_position(this_, data, x1, y1, linetox, linetoy, a, arc) {
 				//calcule case draw %   
 				var casea = Math.atan((y1 - linetox) / (x1 - linetox));
 				var caseb = Math.atan((y2 - linetox) / (x2 - linetox));
@@ -143,8 +143,8 @@
 					casec = casec + Math.PI;
 				}
 				//get coordenates x y
-				x_ = ((Math.cos(casec)) * (linetoy / dates['text-perc'].position)) + linetox;
-				y_ = ((Math.sin(casec)) * (linetoy / dates['text-perc'].position)) + linetox;   
+				x_ = ((Math.cos(casec)) * (linetoy / data['text-perc'].position)) + linetox;
+				y_ = ((Math.sin(casec)) * (linetoy / data['text-perc'].position)) + linetox;   
 			}
 			//render element svg
 			function render_element(this_, element, order) {
@@ -255,17 +255,17 @@
 
 			//pie
 			var x1, x2, y1, y2, x_, y_;
-			function arcs(this_, dates, attrs){
+			function arcs(this_, data, attrs){
 				//Get total value porcent array
 				var linetox = 200 * attrs.size;
 				var linetoy = 195 * attrs.size;
 
-				var t = dates.perc.reduce(
+				var t = data.perc.reduce(
 							function(ac, th) {
 								return th + ac; 
 							}, 0);
 				//Get the areas from the sector Angle array
-				var sector = dates.perc.map(
+				var sector = data.perc.map(
 								function(value) { 
 									return 360 * value / t; 
 								});
@@ -276,23 +276,23 @@
 				//render position element svg
 				render_element(this_, 'g', 1);	
 				//if squares render element
-				if(dates.squares) {	
+				if(data.squares) {	
 					render_element('#g', 'squares', 1);
 				}								
 				//render path
 				render_element('#g', 'path');			
 				//if text percent render element
-				if(dates['text-perc']) {
+				if(data['text-perc']) {
 					render_element('#g', 'text_perc', 1);
 				}	
 				//if balloon render element
-				if(dates.balloon) {
+				if(data.balloon) {
 					render_element('#g', 'balloon', 1);
 					render_element('#g', 'text_balloon', 1);
 					render_element('#g', 'comments_balloon', 1);
 				}	
 				//if text titles render element
-				if(dates['text-titles']) {
+				if(data['text-titles']) {
 					render_element('#g', 'text_titles', 1);
 				}		
 				//each path 
@@ -315,11 +315,11 @@
 					
 					var arc = new Object();
 				
-					$.each(dates.attrs, function(index, value) {
+					$.each(data.attrs, function(index, value) {
 						arc[index] = value[a];
 					}); 
 					//if colors are not custom
-					if(!dates.attrs.fill) {
+					if(!data.attrs.fill) {
 						var c_ = parseInt(a / sector.length * 360);
 						arc.fill = 'hsl(' + c_ + ', 50%, 50%)';
 					}
@@ -336,42 +336,43 @@
 					//add path
 					$('#' + 'path').append(arc_)
 					//calculate position text percent
-					if(dates['text-perc']) {
-						calculate_position(this_, dates, x1, y1, linetox, linetoy, a, arc);
-						text_perc(this_, a, dates)
+					if(data['text-perc']) {
+						calculate_position(this_, data, x1, y1, linetox, linetoy, a, arc);
+						text_perc(this_, a, data)
 					}					
 					//if squares 
-					if(dates.squares) {	
-						squares(this_, a, dates.squares.separation, dates.squares.att, arc.fill, 'squares');
+					if(data.squares) {	
+						squares(this_, a, data.squares.separation, data.squares.att, arc.fill, 'squares');
 					}					
 					//if text titles
-					if(dates['text-titles']) {
-						text_titles(this_, dates['text-titles'], a, dates.attrs.titles[a], dates.perc[a])
+					if(data['text-titles']) {
+						text_titles(this_, data['text-titles'], a, data.attrs.titles[a], data.perc[a])
 					}					
 					//if balloon
-					if(dates.balloon) {
-						calculate_position(this_, dates, x1, y1, linetox, linetoy, a, arc);
-						dates.balloon.att.x = x_;
-						dates.balloon.att.y = y_;
-						dates.balloon.att.onmouseover = 'over_path(' + a + ', 1, \'#balloon\')';
-						dates.balloon.att.onmouseout = 'over_path(' + a + ', 0, \'#balloon\')';
-						balloon(this_, a, dates.balloon, 'balloon');
-						dates.balloon.text.x = x_;
-						dates.balloon.text.y = y_;
-						dates.balloon.text.onmouseover = 'over_path(' + a + ', 1, \'#text_balloon\')';
-						dates.balloon.text.onmouseout = 'over_path(' + a + ', 0, \'#text_balloon\')';
-						text_balloon(this_, a, dates.balloon.text, dates.attrs.titles[a], dates.balloon.text_separation, 'text_balloon');
-						dates.balloon.comments.x = x_;
-						dates.balloon.comments.y = y_;	
-						dates.balloon.comments.onmouseover = 'over_path(' + a + ', 1, \'#comments_balloon\')';
-						dates.balloon.comments.onmouseout = 'over_path(' + a + ', 0, \'#comments_balloon\')';
-						text_balloon(this_, a, dates.balloon.comments, dates.attrs.comments[a], dates.balloon.comments_separation, 'comments_balloon');
+					if(data.balloon) {
+						calculate_position(this_, data, x1, y1, linetox, linetoy, a, arc);
+						data.balloon.att.x = x_;
+						data.balloon.att.y = y_;
+						data.balloon.att.onmouseover = 'over_path(' + a + ', 1, \'#balloon\')';
+						data.balloon.att.onmouseout = 'over_path(' + a + ', 0, \'#balloon\')';
+						balloon(this_, a, data.balloon, 'balloon');
+						data.balloon.text.x = x_;
+						data.balloon.text.y = y_;
+						data.balloon.text.onmouseover = 'over_path(' + a + ', 1, \'#text_balloon\')';
+						data.balloon.text.onmouseout = 'over_path(' + a + ', 0, \'#text_balloon\')';
+						text_balloon(this_, a, data.balloon.text, data.attrs.titles[a], data.balloon.text_separation, 'text_balloon');
+						data.balloon.comments.x = x_;
+						data.balloon.comments.y = y_;	
+						data.balloon.comments.onmouseover = 'over_path(' + a + ', 1, \'#comments_balloon\')';
+						data.balloon.comments.onmouseout = 'over_path(' + a + ', 0, \'#comments_balloon\')';
+						text_balloon(this_, a, data.balloon.comments, data.attrs.comments[a], data.balloon.comments_separation, 'comments_balloon');
 					}
 				}	
 			}
 			
 			//end pie
-			function bar(this_, dates, attrs){
+			//bars
+			function bar(this_, data, attrs){
 				var spacing = attrs.spacing;//spacing between bars
 				for(a = 0; a < attrs.percentage.length; a++) {//total bar count
 					var c = attrs.color[a];//bar color
@@ -425,7 +426,52 @@
 					spacing += attrs.spacing;//increase the separation between bars
 				}
 			}
-			//end bar			
+			//end bar	
+			//lines
+			function line(this_, data, attrs){
+				var x_ = attrs.center.x + attrs.zoomIn;
+				var y_ = attrs.center.y - attrs.zoomIn;
+				var y2 = attrs.center.y;
+				for(x = 0; x < data.valuesy.length; x++) {
+					yend = data.valuesy[x] * attrs.zoomIn;
+					$(this_).je5({ 
+						sort:'canvas', 
+						draw:'line', 
+						strokeStyle:data.strokeStyle, 
+						lineWidth:data.lineWidth, 
+						lineCap:data.lineCap, 
+						moveTo_x:x_, 
+						moveTo_y:y_, 
+						lineTo_x:x_ + attrs.zoomIn, 
+						lineTo_y:y2 - yend 
+					});
+					if(data.x.textx[x]) {
+						$(this_).je5({ 
+							sort:'canvas', 
+							draw:'tex', 
+							font:data.x.font, 
+							text:data.x.textx[x], 
+							fillStyle:data.x.fillStyle, 
+							x:x_, 
+							y:y2 - data.x.adjust
+						});
+					}
+					if(data.y.texty[x]) {
+						$(this_).je5({ 
+							sort:'canvas', 
+							draw:'tex', 
+							font:data.y.font, 
+							text:data.y.texty[x], 
+							fillStyle:data.y.fillStyle, 
+							x:attrs.center.x, 
+							y:(attrs.center.y - attrs.zoomIn) - (attrs.zoomIn * x)
+						});
+					}
+					x_ = x_ + attrs.zoomIn;
+					y_ = y2 - yend;
+				}
+			}
+			//end lines				
 			//end stats
 
             if(options) {
@@ -458,7 +504,9 @@
                     je5.rotate(d.rotate);
                     d.rotate=false;
                 }
-                
+                if(d.globalAlpha){
+					je5.globalAlpha=d.globalAlpha;
+                }                
                 if(d.traslate_x && d.traslate_y) {
                     je5.translate(d.traslate_x, d.traslate_y);
                     d.traslate_x=false;
@@ -664,13 +712,18 @@
 			} else if(d.sort == 'stats'){
 				switch(d.draw.type){
 					case 'pie':
-						if(d.draw.att.dates) {
-							arcs(this, d.draw.att.dates, d.draw.att); 
+						if(d.draw.att.data) {
+							arcs(this, d.draw.att.data, d.draw.att); 
 						}
                     break;
 					case 'bar':
 						if(d.draw.att) {
-							bar(this, d.draw.att.dates, d.draw.att); 
+							bar(this, d.draw.att.data, d.draw.att); 
+						}
+                    break;
+					case 'line':
+						if(d.draw.att) {
+							line(this, d.draw.att.data, d.draw.att); 
 						}
                     break;
 				}		
