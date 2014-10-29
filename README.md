@@ -39,7 +39,7 @@ Code example Stats Pie Graph
 				type:'pie',
 				att:{
 					size:2,//scale pie
-					dates:{
+					data:{
 						squares:{//colored squares, and titles
 							att:{
 								x:900,
