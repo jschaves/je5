@@ -15,8 +15,8 @@ The aim of this project is to make the interaction between javascript, jquery an
 
 Audio, video, webcam, Stats
 
-Code example Stats Pie Graph
-<a href="http://je5.es/je5-stats-scalable-vector-graphics-stats-pie-graph.html">Demo "Media" Stats Pie Graph</a>
+Code example je5 Background Animate 100%
+<a href="http://je5.es/je5-background-animate-100.html">Demo "je5 Background Animate 100%"</a>
 <pre>
 &lt;!DOCTYPE html&gt;
 &lt;html&gt;
