@@ -6,6 +6,7 @@ Plugin jquery to simplify the use of html5
 
 The aim of this project is to make the interaction between javascript, jquery and HTML5 easier. We have started working with canvas, but our purpose is to expand it to all kind of components of HTML5, like sockets, etc.
 
+<p>Section "je5 Background Animate 100%"</p>
 <p>Section "Canvas"</p>
 <p>Section "SVG"</p>
 <p>Section "Animate"</p>
@@ -13,6 +14,47 @@ The aim of this project is to make the interaction between javascript, jquery an
 <p>Section "Stats"</p>
 
 Audio, video, webcam, Stats
+
+Code example Stats Pie Graph
+<a href="http://je5.es/je5-stats-scalable-vector-graphics-stats-pie-graph.html">Demo "Media" Stats Pie Graph</a>
+<pre>
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+	&lt;meta charset="UTF-8"&gt; 
+	&lt;script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"&gt;&lt;/script&gt;
+	&lt;script src="http://je5.es/js/plugin-jquery/plugin-jquery-je5-beta.0.2.1.js"&gt;&lt;/script&gt;
+
+&lt;/head&gt;
+&lt;body&gt;
+&lt;h1 style="font-family: Verdana; color: #fff; background-color: rgba(0, 0, 0, 0.3); padding-right: 10px; padding-left: 10px; font-size: 3.4em; margin-top: 0.5%;"&gt; je5 Background Animate 100%&lt;/h1&gt;
+
+	&lt;script&gt;
+	$('html').je5({
+		sort:'background',
+		attrs:{
+			type:'css',
+			//frames
+			src:[
+				'http://je5.es/images/img-frames/1.png', 
+				'http://je5.es/images/img-frames/2.png', 
+				'http://je5.es/images/img-frames/3.png',
+				'http://je5.es/images/img-frames/4.png', 
+				'http://je5.es/images/img-frames/5.png', 
+				'http://je5.es/images/img-frames/6.png',
+				'http://je5.es/images/img-frames/7.png', 
+				'http://je5.es/images/img-frames/8.png'
+			],
+			change:{//optinal only animation mode
+				time:160,//Time-out to next frame in ms
+				rerun:100//Total repetitions of the animation
+			}
+		}
+	});
+	&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
 
 Code example Stats Pie Graph
 <a href="http://je5.es/je5-stats-scalable-vector-graphics-stats-pie-graph.html">Demo "Media" Stats Pie Graph</a>
