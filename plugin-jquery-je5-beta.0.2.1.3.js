@@ -471,9 +471,23 @@
 					y_ = y2 - yend;
 				}
 			}
-			//end lines				
-			//end stats
-
+			//end lines	
+			//ini background
+			function background(t, b, d) {
+				$(t).delay(d).queue( function(next){ 
+					$(t).css({
+						'background' : 'url("' + b + '") no-repeat fixed center',
+						'-webkit-background-size' : 'cover',
+						'-moz-background-size' : 'cover',
+						'-o-background-size' : 'cover',
+						'background-size' : 'cover'
+					});
+					next(); 
+				});
+			}
+			//end background
+			
+			//je5
             if(options) {
                 d = $.extend(options);
             }
@@ -726,7 +740,27 @@
 							line(this, d.draw.att.data, d.draw.att); 
 						}
                     break;
-				}		
+				}
+			//type background 100% and animate
+			} else if(d.sort == 'background'){
+				var t = this;
+				//array images
+				var i_ = [];
+				//preload imges
+				for(a = 0; a < d.attrs.src.length; a++) {
+					i_[a] = new Image();
+					i_[a].src = d.attrs.src[a];
+				}
+				//play frames
+				if(!d.attrs.change) {
+					background(t, d.attrs.src[0], 0);
+				} else {
+					for(x = 0; x < d.attrs.change.rerun; x++) {
+						for(a = 0; a < d.attrs.src.length; a++) {
+							background(t, d.attrs.src[a], d.attrs.change.time);
+						}
+					}
+				}
 			}
         });
     }
