@@ -1,7 +1,7 @@
 jquery-je5
 ==========
 
-Plugin jquery to simplify the use of html5
+Plugin jquery for multiple purposes of HTML5.
 
 
 The aim of this project is to make the interaction between javascript, jquery and HTML5 easier. We have started working with canvas, but our purpose is to expand it to all kind of components of HTML5, like sockets, etc.
