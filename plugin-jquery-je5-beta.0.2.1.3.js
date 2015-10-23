@@ -380,7 +380,7 @@
 					var i_ = attrs.id[a];//id bar
 					var s_ = attrs.textstyle;//styles bars
 					var idtext_ = attrs.idtext;//svg text id
-					var tra_ = attrs.transform;//Rotate the bars. rotate to any values ​​(0, 0, 0)
+					var tra_ = attrs.transform;//Rotate the bars. rotate to any values â€‹â€‹(0, 0, 0)
 					if(attrs.orientation == 'v') {//orientation vertical (v) 
 						var x_ = attrs.x;
 						var y_ = spacing;//spacing between bars
@@ -703,6 +703,7 @@
 								snap.unshift(canvas);
 								output.innerHTML = '';
 								output.appendChild(snap[0]);
+								dataStreaming = canvas.toDataURL('image/png');
 							} else {
 								alert('An id of video and output and scale is necessary');
 							}
