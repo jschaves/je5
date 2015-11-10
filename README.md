@@ -1,8 +1,8 @@
-jquery-je5
+je5
 ==========
 
-Plugin jquery for multiple purposes of HTML5.
-
+Plugin for multiple purposes of HTML5.
+<p><a href="https://github.com/jschaves/je5/tree/master/examples/save_cam_captures">Save WebCam captures examples PHP & NODE.JS</a></p>
 <p>Section "je5 Background Animate 100%"</p>
 <p>Section "Canvas"</p>
 <p>Section "SVG"</p>
