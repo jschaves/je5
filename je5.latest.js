@@ -2,7 +2,7 @@
 // Author: Juan Chaves
 // Email: juan.cha63@gmail.com
 // URL: http://www.je5.es
-// Version: 0.2.1.3
+// Version: je5-latest
 // Plugin-jquery-je5
 ///////////////////
 //////////////////
