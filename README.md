@@ -46,6 +46,7 @@ El objeto "media" con el valor capture es el encargado de activar la webcam
      }, 9000);
   &lt;/script&gt;
 </pre>
+
 El objeto "capture.video_in" selecciona la etiqueta video html5 que queremos guardar los frames
 
 El objeto "capture.output" identidad de la etiqueta donde mostramos la captura
@@ -62,7 +63,7 @@ Hay que crear una tabla ejemplo archivo db.sql
 
 Lanzar el servidor con capture.js
 
-Para ver capturas lanzar otro servidor con view.js
+Para ver capturas lanzar otro servidor con view.js http://localhost:8001/view
 
 Hay otro ejemplo en php https://github.com/jschaves/je5/tree/master/examples/save_cam_captures/php
 
