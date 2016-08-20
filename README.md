@@ -1,6 +1,72 @@
 je5
 ==========
 
+
+
+
+Save Cam Captures
+
+En esta ocasión capturamos las imágenes de la web cam y las guardamos en una base de datos.
+
+https://github.com/jschaves/je5/tree/master/examples/save_cam_captures
+
+Ejemplo con Node.js:
+
+capture.html
+
+El objeto "media" con el valor capture es el encargado de activar la webcam
+
+&lt;script&gt;
+     $('#video').je5({
+         sort:{media:'capture'},//select webcam
+         att:{
+             video:true,
+             audio:true,
+             width:450,
+             controls:false,
+             muted:true
+         },
+         capture:{
+             video_in:'video',//id capture
+             video_out:'output',//id output img
+             btton_id:'cap',//id button of capture img
+             scale:0.2,//scale img
+             x:0,//ini img x
+             y:0//ini img y
+         }
+     });
+     setInterval(
+         function () {
+             document.getElementById('cap').click();
+             $.post('http://localhost:8000/capture',{
+                 img:dataStreaming
+             }, function(data, textStatus, jqXHR) {
+                 console.log(data);
+             });
+     }, 9000);
+&lt;/script&gt;
+
+El objeto "capture.video_in" selecciona la etiqueta video html5 que queremos guardar los frames
+
+El objeto "capture.output" identidad de la etiqueta donde mostramos la captura
+
+El objeto "capture.btton_id" identidad del disparador de la captura
+
+El objeto "capture.scale" determina el tamaño de la imagen a capturar
+
+Los objetos "capture.x" y "capture.y" determina la posición de inicio de la imagen
+
+La función "setInterval" determinamos el tiempo que transcurre de una captura a otra y guardamos en la base de datos mediante la llamada al servidor http://localhost:8000/capture
+
+Hay que crear una tabla ejemplo archivo db.sql
+
+Lanzar el servidor con capture.js
+
+Para ver capturas lanzar otro servidor con view.js
+
+Hay otro ejemplo en php https://github.com/jschaves/je5/tree/master/examples/save_cam_captures/php
+
+
 Plugin for multiple purposes of HTML5.
 <p><a href="https://github.com/jschaves/je5/tree/master/examples/save_cam_captures">Save WebCam captures examples PHP & NODE.JS</a></p>
 <p>Section "je5 Background Animate 100%"</p>
