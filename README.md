@@ -15,7 +15,7 @@ Ejemplo con Node.js:
 capture.html
 
 El objeto "media" con el valor capture es el encargado de activar la webcam
-
+<pre>
 &lt;script&gt;
      $('#video').je5({
          sort:{media:'capture'},//select webcam
@@ -44,8 +44,8 @@ El objeto "media" con el valor capture es el encargado de activar la webcam
                  console.log(data);
              });
      }, 9000);
-&lt;/script&gt;
-
+  &lt;/script&gt;
+</pre>
 El objeto "capture.video_in" selecciona la etiqueta video html5 que queremos guardar los frames
 
 El objeto "capture.output" identidad de la etiqueta donde mostramos la captura
