@@ -1,0 +1,40 @@
+{
+  "name": "save_cam_captures",
+  "version": "10.3.1",
+  "description": "An example module to save cam captures node.js",
+  "author": "Juan Chaves <juan.cha63@gmail.com>",
+  "contributors": [{
+  "name": "Juan Chaves",
+  "email": "juan.cha63@gmail.com"
+}],
+  "bin": {
+  "save_cam_captures": "./"
+},
+  "scripts": {
+    "start": "node captures.js",
+    "view": "node view.js"
+  },
+  "main": "captures.js",
+  "repository": {
+  "type": "git",
+  "url": "https://github.com/jschaves/je5"
+},
+  "bugs": {
+  "url": "https://github.com/jschaves/je5/issues"
+},
+  "je5": [
+  "save_cam_captures",
+  "view",
+  "examples"
+],
+  "dependencies": {
+    "mysql": "*",
+    "express": "*",
+    "path": "*",
+    "body-parser": "*"
+  },
+  "subdomain": "view",
+  "subdomain": "capture",
+  "analyze": true,
+  "license": "UNLICENSED"
+}

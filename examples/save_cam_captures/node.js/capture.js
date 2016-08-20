@@ -10,7 +10,7 @@ app.post('/capture', function(req, res) {
 		host     : 'localhost',
 		user     : 'root',
 		password : '',
-		database : 'pru_je5_stream',
+		database : 'pru_je5_stream'
 	});
 	connection.connect();
 	if(req.body.img != 'data:,' && req.body.img != '') {

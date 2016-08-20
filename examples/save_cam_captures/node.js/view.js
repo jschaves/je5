@@ -47,4 +47,4 @@ app.get('/view', function(req, res) {
 	});
 });
 console.log('server start');
-app.listen(8000);
+app.listen(8001);
