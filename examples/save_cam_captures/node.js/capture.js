@@ -8,9 +8,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.post('/capture', function(req, res) {
 	var connection = mysql.createConnection({
 		host     : 'localhost',
-		user     : 'user',
-		password : 'pass',
-		database : 'db'
+		user     : 'youruser',
+		password : 'yourpass',
+		database : 'yourdb'
 	});
 	connection.connect();
 	if(req.body.img != 'data:,' && req.body.img != '') {

@@ -8,9 +8,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.get('/play', function(req, res) {
 	var connection = mysql.createConnection({
 		host     : 'localhost',
-		user     : 'admin_je5_cap',
-		password : '9243aabb',
-		database : 'admin_je5_capture'
+		user     : 'youruser',
+		password : 'yourpass',
+		database : 'youdb'
 	});
 	connection.connect();
 	var queryString = "SELECT * FROM `streaming` WHERE ID = 1";
