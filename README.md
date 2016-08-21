@@ -1,9 +1,6 @@
 je5
 ==========
 
-
-
-
 Save Cam Captures
 
 En esta ocasión capturamos las imágenes de la web cam y las guardamos en una base de datos.
@@ -65,10 +62,10 @@ Lanzar el servidor con capture.js
 
 Para ver capturas lanzar otro servidor con view.js http://localhost:8001/view
 
+Ver un ejemplo online http://je5.es:8001/play
+
 Hay otro ejemplo en php https://github.com/jschaves/je5/tree/master/examples/save_cam_captures/php
 
-
-Plugin for multiple purposes of HTML5.
 <p><a href="https://github.com/jschaves/je5/tree/master/examples/save_cam_captures">Save WebCam captures examples PHP & NODE.JS</a></p>
 <p>Section "je5 Background Animate 100%"</p>
 <p>Section "Canvas"</p>
