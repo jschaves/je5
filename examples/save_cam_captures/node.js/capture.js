@@ -8,9 +8,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.post('/capture', function(req, res) {
 	var connection = mysql.createConnection({
 		host     : 'localhost',
-		user     : 'root',
-		password : '',
-		database : 'pru_je5_stream'
+		user     : 'user',
+		password : 'pass',
+		database : 'db'
 	});
 	connection.connect();
 	if(req.body.img != 'data:,' && req.body.img != '') {
@@ -20,7 +20,7 @@ app.post('/capture', function(req, res) {
 			if(err) {
 				console.log(err);
 			} else {
-				console.log('OK');
+				console.log('Image saved correctly');
 			}
 			connection.end();
 		});

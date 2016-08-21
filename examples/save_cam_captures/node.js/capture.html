@@ -34,7 +34,7 @@
 				video_in:'video',//id capture
 				video_out:'output',//id output img
 				btton_id:'cap',//id button of capture img
-				scale:0.2,//scale img
+				scale:0.25,//scale img
 				x:0,//ini img x
 				y:0//ini img y
 			}
@@ -42,7 +42,7 @@
 		setInterval(
 			function () {
 				document.getElementById('cap').click();
-				$.post('http://localhost:8000/capture',{
+				$.post('http://je5.es:8000/capture',{
 					img:dataStreaming
 				}, function(data, textStatus, jqXHR) {
 					console.log(data);
