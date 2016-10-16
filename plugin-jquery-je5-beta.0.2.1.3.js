@@ -20,8 +20,8 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 //////////////////
 (function($){
-    $.fn.je5 = function(options){
-        return this.each(function(){
+	$.fn.je5 = function(options){
+		return this.each(function(){
 			//Functions WEBCAM
 			//Check the different engines that support
 			function userMedia() {
@@ -53,7 +53,6 @@
 					je5.fillStyle = d.fillStyle;
 					je5.fillRect(0, 0, d.width, d.height);
 					je5.drawImage(img, d.x, d.y, d.width, d.height);
-									
 					if(d.tox == 'left') {
 						if(d.x > d.lxmin) {	
 							d.x -= d.shiftx;
@@ -63,7 +62,6 @@
 							d.x += d.shiftx;	
 						} 
 					}
-					
 					if(d.toy == 'up') {
 						if(d.y > d.lymin) {
 							d.y -= d.shifty;
@@ -80,7 +78,7 @@
 				if(type == 'svg') {
 					var element = document.createElementNS('http://www.w3.org/2000/svg', tag);
 					if(attrs['xlink:href']) {
-						element.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', attrs['xlink:href']);
+					element.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', attrs['xlink:href']);
 					}
 				} else {
 					var element = document.createElement(tag);
@@ -96,7 +94,6 @@
 					$(name).attr(k, attr_[k]);
 				}
 			}
-			
 			//functions stats
 			//Calculate position coordenates pie
 			function calculate_position(this_, data, x1, y1, linetox, linetoy, a, arc) {
@@ -106,29 +103,29 @@
 				var casec;
 				//Case a
 				if(
-					(
-						x1 < linetox &&
-						y1 >= linetox
-					) || (
-						x1 < linetox &&
-						y1 < linetox
-					)
+				(
+				x1 < linetox &&
+				y1 >= linetox
+				) || (
+				x1 < linetox &&
+				y1 < linetox
+				)
 				) {
-				casea = casea + Math.PI;
+					casea = casea + Math.PI;
 				}
 				//case b
 				if(
-					(
-						x2 < linetox &&
-						y2 >= linetox
-					) || (
-						x2 < linetox &&
-						y2 < linetox
-					)
+				(
+				x2 < linetox &&
+				y2 >= linetox
+				) || (
+				x2 < linetox &&
+				y2 < linetox
+				)
 				) {
 					caseb = caseb + Math.PI;
 				}
-				
+
 				//case a
 				if(casea < 0) {
 					casea = casea + 2*Math.PI;
@@ -247,32 +244,30 @@
 				//increment position x
 				var sep = text_titles.separation;
 				if(a > 0) {
-					text_titles.att.y += sep;
+				text_titles.att.y += sep;
 				}
 				//add rest attrs
 				$('#text-titel' + a).attr(text_titles.att);	
 			}
-
 			//pie
 			var x1, x2, y1, y2, x_, y_;
 			function arcs(this_, data, attrs){
 				//Get total value porcent array
 				var linetox = 200 * attrs.size;
 				var linetoy = 195 * attrs.size;
-
 				var t = data.perc.reduce(
-							function(ac, th) {
-								return th + ac; 
-							}, 0);
+					function(ac, th) {
+						return th + ac; 
+					}, 0
+				);
 				//Get the areas from the sector Angle array
 				var sector = data.perc.map(
-								function(value) { 
-									return 360 * value / t; 
-								});
+					function(value) { 
+						return 360 * value / t; 
+				});
 				//Start and End of Angle
 				var ini = -90;
 				var end = -90;
-				
 				//render position element svg
 				render_element(this_, 'g', 1);	
 				//if squares render element
@@ -304,7 +299,6 @@
 					y1 = parseInt(Math.round(linetox + linetoy * Math.sin(Math.PI * ini / 180)));
 					x2 = parseInt(Math.round(linetox + linetoy * Math.cos(Math.PI * end / 180)));
 					y2 = parseInt(Math.round(linetox + linetoy * Math.sin(Math.PI * end / 180)));
-					
 					if(end - ini > 180) {
 						position = 1;
 					} else {
@@ -312,15 +306,13 @@
 					}
 					//Path values
 					var d = 'M' + linetox + ',' + linetox + ' L' + x1 + ', ' + y1 + ' A' + linetoy + ',' + linetoy + ' 0 ' + position + ',1 ' + x2 + ', ' + y2 + ' z';
-					
 					var arc = new Object();
-				
 					$.each(data.attrs, function(index, value) {
 						arc[index] = value[a];
 					}); 
 					//if colors are not custom
 					if(!data.attrs.fill) {
-						var c_ = parseInt(a / sector.length * 360);
+					var c_ = parseInt(a / sector.length * 360);
 						arc.fill = 'hsl(' + c_ + ', 50%, 50%)';
 					}
 					//add atributes arc
@@ -334,11 +326,11 @@
 					//create pie portion
 					var arc_ = makeTags('path', arc, 'svg');
 					//add path
-					$('#' + 'path').append(arc_)
+					$('#' + 'path').append(arc_);
 					//calculate position text percent
 					if(data['text-perc']) {
 						calculate_position(this_, data, x1, y1, linetox, linetoy, a, arc);
-						text_perc(this_, a, data)
+						text_perc(this_, a, data);
 					}					
 					//if squares 
 					if(data.squares) {	
@@ -369,7 +361,6 @@
 					}
 				}	
 			}
-			
 			//end pie
 			//bars
 			function bar(this_, data, attrs){
@@ -380,7 +371,7 @@
 					var i_ = attrs.id[a];//id bar
 					var s_ = attrs.textstyle;//styles bars
 					var idtext_ = attrs.idtext;//svg text id
-					var tra_ = attrs.transform;//Rotate the bars. rotate to any values â€‹â€‹(0, 0, 0)
+					var tra_ = attrs.transform;//Rotate the bars. rotate to any values Ã¢â‚¬â€¹Ã¢â‚¬â€¹(0, 0, 0)
 					if(attrs.orientation == 'v') {//orientation vertical (v) 
 						var x_ = attrs.x;
 						var y_ = spacing;//spacing between bars
@@ -428,7 +419,7 @@
 			}
 			//end bar	
 			//lines
-			function line(this_, data, attrs){
+			function line(this_, data, attrs) {
 				var x_ = attrs.center.x + attrs.zoomIn;
 				var y_ = attrs.center.y - attrs.zoomIn;
 				var y2 = attrs.center.y;
@@ -474,7 +465,7 @@
 			//end lines	
 			//ini background
 			function background(t, b, d) {
-				$(t).delay(d).queue( function(next){ 
+				$(t).delay(d).queue( function(next) { 
 					$(t).css({
 						'background' : 'url("' + b + '") no-repeat fixed center',
 						'-webkit-background-size' : 'cover',
@@ -486,184 +477,243 @@
 				});
 			}
 			//end background
-			
+			//get browser
+			function getBrowser() {
+				start = 0;
+				//It is the IE browser
+				if(navigator.userAgent.indexOf("MSIE") >= 0) {
+					browser = 'ie';
+				} else {
+					browser = 'others';
+				}
+			}			
+			//end get browser
+			//prevent default events
+			var noEvents = function(e) {
+				if(browser == 'ie') {//avoid other events
+					window.e.cancelBubble = true;
+					window.e.returnValue = false;
+				}
+				if(browser == 'others') e.preventDefault();
+			}			
+			//end prevent default events
+			//detect cursor position
+			var startNow = function(e) {
+				var id = this.id;
+				movement = document.getElementById(id);
+				if(browser == 'ie') {
+					cursorX = window.e.clientX + document.documentElement.scrollLeft + document.body.scrollLeft;
+					cursorY = window.e.clientY + document.documentElement.scrollTop + document.body.scrollTop;
+				}
+				if(browser == 'others') {    
+					cursorX = e.clientX+window.scrollX;
+					cursorY = e.clientY+window.scrollY;
+				}
+				movement.onmousemove = moving;
+				movement.onmouseup = movingOrder;
+				iniX = parseInt(movement.style.left);
+				iniY = parseInt(movement.style.top);
+				movement.style.zIndex = ++start;
+				noEvents(e);
+			}			
+			//end detect cursor position
+			//new position object
+			var moving = function(e) {  
+				var x, y;
+				if(browser == 'ie') {    
+					x = window.e.clientX + document.documentElement.scrollLeft + document.body.scrollLeft;
+					y = window.e.clientY + document.documentElement.scrollTop + document.body.scrollTop;
+				}  
+				if(browser == 'others') {
+					x = e.clientX + window.scrollX;
+					y = e.clientY + window.scrollY;
+				}
+				movement.style.left = (iniX + x - cursorX) + 'px';
+				movement.style.top = (iniY + y - cursorY) + 'px';
+				noEvents(e);
+			}			
+			//end new position object
+			// moving order
+			var movingOrder = function() {
+				movement.onmousemove = null;
+				movement.onmouseup = null;
+			}			
 			//je5
-            if(options) {
-                d = $.extend(options);
-            }
+			if(options) {
+				d = $.extend(options);
+			}
 			//type canvas
-			if(d.sort == 'canvas'){
-                c=document.getElementById(this.id);
-                var je5=c.getContext("2d");
-                je5.beginPath();
-                
-                if(d.fillStyle){
-                    je5.fillStyle=d.fillStyle;
-                }
-                if(d.strokeStyle){
-                    je5.strokeStyle=d.strokeStyle;
-                }
-                if(d.shadow_c){
-                    je5.shadowColor=d.shadow_c;
-                    je5.shadowBlur=d.shadow_b;
-                    je5.shadowOffsetX=d.shadow_ox;
-                    je5.shadowOffsetY=d.shadow_oy;
-                    d.shadow_c=false;
-                }
-                if(d.lineWidth){
-                    je5.lineWidth=d.lineWidth;
-                    d.lineWidth=false;
-                }
-                if(d.rotate){
-                    je5.rotate(d.rotate);
-                    d.rotate=false;
-                }
-                if(d.globalAlpha){
+			if(d.sort == 'canvas') {
+				c=document.getElementById(this.id);
+				var je5=c.getContext("2d");
+				je5.beginPath();
+				if(d.fillStyle){
+					je5.fillStyle=d.fillStyle;
+				}
+				if(d.strokeStyle){
+					je5.strokeStyle=d.strokeStyle;
+				}
+				if(d.shadow_c){
+					je5.shadowColor=d.shadow_c;
+					je5.shadowBlur=d.shadow_b;
+					je5.shadowOffsetX=d.shadow_ox;
+					je5.shadowOffsetY=d.shadow_oy;
+					d.shadow_c=false;
+				}
+				if(d.lineWidth){
+					je5.lineWidth=d.lineWidth;
+					d.lineWidth=false;
+				}
+				if(d.rotate){
+					je5.rotate(d.rotate);
+					d.rotate=false;
+				}
+				if(d.globalAlpha){
 					je5.globalAlpha=d.globalAlpha;
-                }                
-                if(d.traslate_x && d.traslate_y) {
-                    je5.translate(d.traslate_x, d.traslate_y);
-                    d.traslate_x=false;
-                    d.traslate_y=false;
-                }
-                switch(d.draw){
-                    case 'rectangle':
-                        je5.rect(d.x, d.y, d.width, d.height);
-                    break;
-                    case 'gradient':
-                        je5.rect(d.x, d.y, d.width, d.height);
-                        var grd = je5.createLinearGradient(d.x, d.y, d.width, d.height);
-                        grd.addColorStop(0, d.color1);
-                        grd.addColorStop(1, d.color2);
-                        je5.fillStyle=grd;
-                    break;
-                     case 'delRectangle':
-                         je5.clearRect(d.x, d.y, d.width, d.height);
-                    break;
-                    case 'line':
-                        je5.moveTo(d.moveTo_x, d.moveTo_y);
-                        je5.lineTo(d.lineTo_x, d.lineTo_y);
-                        je5.lineCap=d.lineCap;
-                    break;
-                    case 'arc':
-                        je5.arc(d.x, d.y, d.r, d.start*Math.PI, d.stop*Math.PI, d.clockwise);
-                        if(d.clockwise){
-                            d.clockwise=false;
-                        }
-                    break;
-                    case 'circle':
-                        je5.arc(d.x, d.y, d.r, d.start, d.stop*Math.PI, d.clockwise);
-                        if(d.clockwise){
-                            d.clockwise=false;
-                        }
-                    break;
-                    case 'oval':
-                        je5.save();
-                        je5.scale(d.scale_x, d.scale_y);
-                        je5.arc(d.x, d.y, d.r, 0, 2 * Math.PI, false);
-                        je5.restore();
-                    break;
-                    case 'quadratic_curve':
-                        je5.moveTo(d.x, d.y);
-                        je5.quadraticCurveTo(d.x1, d.y1, d.x2, d.y2);
-                    break;
-                    case 'bezier_curve':
-                        je5.moveTo(d.x, d.y);
-                        je5.bezierCurveTo(d.x1, d.y1, d.x2, d.y2, d.x3, d.y3);
-                    break;
-                    case 'pattern':
-                        var xPattern=d.x;
-                        var yPattern=d.y;
-                        var imageObj = new Image();
-                        var widthPattern = d.width;
-                        var heightPattern = d.height;
-                        var r = d.repeat;
-                        imageObj.onload = function() {
-                            var pattern = je5.createPattern(imageObj, r);
-                            je5.rect(xPattern, yPattern, widthPattern, heightPattern);
-                            je5.fillStyle=pattern;
-                            je5.fill();
-                        };
-                        imageObj.src = d.img;
-                    break;
-                    case 'img':
-                        var img=new Image();
-                        img.src=d.img;
-                        var xImage=d.x;
-                        var yImage=d.y;
-                        var widthImg = d.width;
-                        var heightImg = d.height;
-                        img.onload = function(){
-                            if(widthImg && heightImg){
-                                je5.drawImage(img, xImage, yImage, widthImg, heightImg);
-                            }else{
-                                je5.drawImage(img, xImage, yImage);
-                            }
-                        }
-                    break;
-                    case 'imgCrop':
-                        var img=new Image();
-                        img.src=d.img;
-                        var xImage=d.x;
-                        var yImage=d.y;
-                        var widthImg = d.width;
-                        var heightImg = d.height;
-                        var moveXImage=d.xMove;
-                        var moveYImage=d.yMove;
-                        var moveWidthImg = d.widthMove;
-                        var moveHeightImg = d.heightMove;
-                        img.onload = function(){
-                            je5.drawImage(img, xImage, yImage, widthImg, heightImg, moveXImage, moveYImage, moveWidthImg, moveHeightImg);
-                        }
-                    break;
-                    case 'tex':
-                        je5.font=d.font;
-                        if(d.fillStyle){
-                            je5.fillText(d.text, d.x, d.y);
-                            d.fillStyle=false;
-                        }
-                        if(d.strokeStyle){
-                            je5.strokeText(d.text, d.x, d.y);
-                            d.strokeStyle=false;
-                        }
-                    break;
-                }
-                if(d.closePath){
-                    je5.closePath();
-                    d.closePath=false;
-                }
-                if(d.fillStyle || grd){
-                    je5.fill();
-                    d.fillStyle=false;
-    				grd=false;
-                }
-                if(d.strokeStyle){
-                    je5.stroke();
-                    d.strokeStyle=false;
-                }
+				}                
+				if(d.traslate_x && d.traslate_y) {
+					je5.translate(d.traslate_x, d.traslate_y);
+					d.traslate_x=false;
+					d.traslate_y=false;
+				}
+				switch(d.draw) {
+					case 'rectangle':
+					je5.rect(d.x, d.y, d.width, d.height);
+					break;
+					case 'gradient':
+					je5.rect(d.x, d.y, d.width, d.height);
+					var grd = je5.createLinearGradient(d.x, d.y, d.width, d.height);
+					grd.addColorStop(0, d.color1);
+					grd.addColorStop(1, d.color2);
+					je5.fillStyle=grd;
+					break;
+					case 'delRectangle':
+					je5.clearRect(d.x, d.y, d.width, d.height);
+					break;
+					case 'line':
+					je5.moveTo(d.moveTo_x, d.moveTo_y);
+					je5.lineTo(d.lineTo_x, d.lineTo_y);
+					je5.lineCap=d.lineCap;
+					break;
+					case 'arc':
+					je5.arc(d.x, d.y, d.r, d.start*Math.PI, d.stop*Math.PI, d.clockwise);
+					if(d.clockwise){
+						d.clockwise=false;
+					}
+					break;
+					case 'circle':
+					je5.arc(d.x, d.y, d.r, d.start, d.stop*Math.PI, d.clockwise);
+					if(d.clockwise) {
+						d.clockwise=false;
+					}
+					break;
+					case 'oval':
+					je5.save();
+					je5.scale(d.scale_x, d.scale_y);
+					je5.arc(d.x, d.y, d.r, 0, 2 * Math.PI, false);
+					je5.restore();
+					break;
+					case 'quadratic_curve':
+					je5.moveTo(d.x, d.y);
+					je5.quadraticCurveTo(d.x1, d.y1, d.x2, d.y2);
+					break;
+					case 'bezier_curve':
+					je5.moveTo(d.x, d.y);
+					je5.bezierCurveTo(d.x1, d.y1, d.x2, d.y2, d.x3, d.y3);
+					break;
+					case 'pattern':
+					var xPattern=d.x;
+					var yPattern=d.y;
+					var imageObj = new Image();
+					var widthPattern = d.width;
+					var heightPattern = d.height;
+					var r = d.repeat;
+					imageObj.onload = function() {
+						var pattern = je5.createPattern(imageObj, r);
+						je5.rect(xPattern, yPattern, widthPattern, heightPattern);
+						je5.fillStyle=pattern;
+						je5.fill();
+					};
+					imageObj.src = d.img;
+					break;
+					case 'img':
+					var img=new Image();
+					img.src=d.img;
+					var xImage=d.x;
+					var yImage=d.y;
+					var widthImg = d.width;
+					var heightImg = d.height;
+					img.onload = function() {
+						if(widthImg && heightImg) {
+							je5.drawImage(img, xImage, yImage, widthImg, heightImg);
+						} else {
+							je5.drawImage(img, xImage, yImage);
+						}
+					}
+					break;
+					case 'imgCrop':
+					var img=new Image();
+					img.src=d.img;
+					var xImage=d.x;
+					var yImage=d.y;
+					var widthImg = d.width;
+					var heightImg = d.height;
+					var moveXImage=d.xMove;
+					var moveYImage=d.yMove;
+					var moveWidthImg = d.widthMove;
+					var moveHeightImg = d.heightMove;
+					img.onload = function() {
+						je5.drawImage(img, xImage, yImage, widthImg, heightImg, moveXImage, moveYImage, moveWidthImg, moveHeightImg);
+					}
+					break;
+					case 'tex':
+					je5.font=d.font;
+					if(d.fillStyle) {
+						je5.fillText(d.text, d.x, d.y);
+						d.fillStyle=false;
+					}
+					if(d.strokeStyle) {
+						je5.strokeText(d.text, d.x, d.y);
+						d.strokeStyle=false;
+					}
+					break;
+				}
+				if(d.closePath) {
+					je5.closePath();
+					d.closePath=false;
+				}
+				if(d.fillStyle || grd) {
+					je5.fill();
+					d.fillStyle=false;
+					grd=false;
+				}
+				if(d.strokeStyle) {
+					je5.stroke();
+					d.strokeStyle=false;
+				}
 				if(d.sliding) {
 					animation();
 				}
-			//type media
+				//type media
 			} else if(d.sort.media) {
-				//media video
-				if(d.sort.media == 'video') {
-					$(this).append(makeTags('source', d.att.source, 'source'));
-					converObjectAttr($(this), d.att.video);
-					if(d.att.alert) {
-						$(this).append(d.att.alert);
-					}
-					d = false;	
-				//media audio
-				} else if(d.sort.media == 'audio') {
-					$(this).append(makeTags('source', d.att.source, 'source'));
-					converObjectAttr($(this), d.att.video);
-					if(d.att.alert) {
-						$(this).append(d.att.alert);
-					}
-					d = false;
+			//media video
+			if(d.sort.media == 'video') {
+			$(this).append(makeTags('source', d.att.source, 'source'));
+			converObjectAttr($(this), d.att.video);
+			if(d.att.alert) {
+			$(this).append(d.att.alert);
+			}
+			d = false;	
+			//media audio
+			} else if(d.sort.media == 'audio') {
+				$(this).append(makeTags('source', d.att.source, 'source'));
+				converObjectAttr($(this), d.att.video);
+				if(d.att.alert) {
+					$(this).append(d.att.alert);
+				}
+				d = false;
 				//media capture webcam
-				} else if(d.sort.media == 'capture'){//captute instant webcam
+				} else if(d.sort.media == 'capture') {//captute instant webcam
 					var snap = [];
 					var cam_id = $(this).attr('id');
 					converObjectAttr($(this), d.att);
@@ -689,7 +739,7 @@
 					}
 					//capture image
 					if(d.capture) {	
-						 $('#'+d.capture.btton_id).click(function() {
+						$('#'+d.capture.btton_id).click(function() {
 							if(d.capture.video_out && d.capture.scale) {
 								var image_in  = document.getElementById(cam_id);
 								var output = document.getElementById(d.capture.video_out);
@@ -710,8 +760,8 @@
 						});					
 					}
 				}
-			//type svg
-			} else if(d.sort == 'svg'){			
+				//type svg
+			} else if(d.sort == 'svg') {			
 				if(d.draw) {
 					$(this).append(makeTags(d.draw.type, d.draw.att, 'svg'));
 					//append atributes
@@ -723,48 +773,60 @@
 						$('#' + d.draw.att.id).append(d.draw.app_);
 					} 					
 				}
-			//type stats
-			} else if(d.sort == 'stats'){
-				switch(d.draw.type){
+				//type stats
+			} else if(d.sort == 'stats') {
+				switch(d.draw.type) {
 					case 'pie':
-						if(d.draw.att.data) {
-							arcs(this, d.draw.att.data, d.draw.att); 
-						}
-                    break;
+					if(d.draw.att.data) {
+						arcs(this, d.draw.att.data, d.draw.att); 
+					}
+					break;
 					case 'bar':
-						if(d.draw.att) {
-							bar(this, d.draw.att.data, d.draw.att); 
-						}
-                    break;
+					if(d.draw.att) {
+						bar(this, d.draw.att.data, d.draw.att); 
+					}
+					break;
 					case 'line':
-						if(d.draw.att) {
-							line(this, d.draw.att.data, d.draw.att); 
-						}
-                    break;
+					if(d.draw.att) {
+						line(this, d.draw.att.data, d.draw.att); 
+					}
+					break;
 				}
-			//type background 100% and animate
+				//type background 100% and animate
 			} else if(d.sort == 'background'){
-				var t = this;
-				//array images
-				var i_ = [];
-				//preload imges
-				for(a = 0; a < d.attrs.src.length; a++) {
-					i_[a] = new Image();
-					i_[a].src = d.attrs.src[a];
-				}
-				//play frames
-				if(!d.attrs.change) {
-					background(t, d.attrs.src[0], 0);
-				} else {
-					for(x = 0; x < d.attrs.change.rerun; x++) {
-						for(a = 0; a < d.attrs.src.length; a++) {
-							background(t, d.attrs.src[a], d.attrs.change.time);
-						}
+			var t = this;
+			//array images
+			var i_ = [];
+			//preload imges
+			for(a = 0; a < d.attrs.src.length; a++) {
+				i_[a] = new Image();
+				i_[a].src = d.attrs.src[a];
+			}
+			//play frames
+			if(!d.attrs.change) {
+				background(t, d.attrs.src[0], 0);
+			} else {
+				for(x = 0; x < d.attrs.change.rerun; x++) {
+					for(a = 0; a < d.attrs.src.length; a++) {
+						background(t, d.attrs.src[a], d.attrs.change.time);
 					}
 				}
 			}
-        });
-    }
+			//type drag drop
+			} else if(d.sort == 'dragDrop') {
+				if($(this).attr('id')) {
+					getBrowser();
+					document.getElementById($(this).attr('id')).onmouseover = function() { 
+						this.style.cursor = 'move'; 
+					}
+				} else {
+					console.log('Error, no id!');
+				}
+				document.getElementById($(this).attr('id')).onmousedown = startNow;	
+				document.getElementById($(this).attr('id')).OnTouchDown = startNow;
+			}
+		});
+	}
 })(jQuery);
 //functions stats
 //over path
