@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8"> 
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script src="http://je5.es/js/plugin-jquery/plugin-jquery-je5-beta.0.2.1.js"></script>
+	<script type="text/javascript">
+	var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+	document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+	</script>
+	<script type="text/javascript">
+	try{
+	var pageTracker = _gat._getTracker("UA-37093836-1");
+	pageTracker._trackPageview();
+	} catch(err) {}</script>
+</head>
+<body>
+<h1 style="font-family: Verdana; color: #fff; background-color: rgba(0, 0, 0, 0.3); padding-right: 10px; padding-left: 10px; font-size: 3.4em; margin-top: 0.5%;"> je5 Background Animate 100%</h1>
+<div style="padding:10px;font-family: Verdana; color: #fff; background-color: rgba(0, 0, 0, 0.3);width:100px;"> <a href="http://je5.es" style="color:#fff"> je5</a><br /><a id="code" href="" style="color:#fff">View code</a></div>
+<pre style="padding:10px;font-size: 0.7em;word-wrap: break-word;display:none;background-color: rgba(0, 0, 0, 0.5);color:#fff;font-family: Verdana;" id="pre">
+<div>
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+	&lt;meta charset="UTF-8"&gt; 
+	&lt;script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"&gt;&lt;/script&gt;
+	&lt;script src="http://je5.es/js/plugin-jquery/plugin-jquery-je5-beta.0.2.1.js"&gt;&lt;/script&gt;
+
+&lt;/head&gt;
+&lt;body&gt;
+&lt;h1 style="font-family: Verdana; color: #fff; background-color: rgba(0, 0, 0, 0.3); padding-right: 10px; padding-left: 10px; font-size: 3.4em; margin-top: 0.5%;"&gt; je5 Background Animate 100%&lt;/h1&gt;
+
+	&lt;script&gt;
+	$('html').je5({
+		sort:'background',
+		attrs:{
+			type:'css',
+			//frames
+			src:[
+				'http://je5.es/images/img-frames/1.png', 
+				'http://je5.es/images/img-frames/2.png', 
+				'http://je5.es/images/img-frames/3.png',
+				'http://je5.es/images/img-frames/4.png', 
+				'http://je5.es/images/img-frames/5.png', 
+				'http://je5.es/images/img-frames/6.png',
+				'http://je5.es/images/img-frames/7.png', 
+				'http://je5.es/images/img-frames/8.png'
+			],
+			change:{//optinal only animation mode
+				time:160,//Time-out to next frame in ms
+				rerun:100//Total repetitions of the animation
+			}
+		}
+	});
+	&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</div>
+</pre>
+	<script>
+	$('html').je5({
+		sort:'background',
+		attrs:{
+			type:'css',
+			//frames
+			src:[
+				'http://je5.es/images/img-frames/1.png', 
+				'http://je5.es/images/img-frames/2.png', 
+				'http://je5.es/images/img-frames/3.png',
+				'http://je5.es/images/img-frames/4.png', 
+				'http://je5.es/images/img-frames/5.png', 
+				'http://je5.es/images/img-frames/6.png',
+				'http://je5.es/images/img-frames/7.png', 
+				'http://je5.es/images/img-frames/8.png'
+			],
+			change:{//optinal only animation mode
+				time:160,//Time-out to next frame in ms
+				rerun:100//Total repetitions of the animation
+			}
+		}
+	});
+
+	$( document ).ready(function() {
+		$('#code').click(function(){ 
+			if($('#code').html() == 'View code') {
+				$('#pre').fadeIn('slow');
+				$('#code').html('Hide code');
+				return false;
+			} else {
+				$('#pre').fadeOut('slow');
+				$('#code').html('View code');	
+				return false;
+			}
+		});
+	});
+	</script>
+</body>
+</html>
