@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8"> 
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script src="http://je5.es/js/plugin-jquery/plugin-jquery-je5-beta.0.2.1.js"></script>
+	<script type="text/javascript">
+	var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+	document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+	</script>
+	<script type="text/javascript">
+	try{
+	var pageTracker = _gat._getTracker("UA-37093836-1");
+	pageTracker._trackPageview();
+	} catch(err) {}</script>
+</head>
+<body>
+	<img src="http://www.je5.es/img/1.jpg" id="1" style="width:300px; top:100px; left:400px; position:absolute" />
+	<img src="http://www.je5.es/img/2.jpg" id="2" style="width:300px; top:150px; left:450px; position:absolute" />
+	<img src="http://www.je5.es/img/3.jpg" id="3" style="width:300px; top:200px; left:500px; position:absolute" />
+<h1 style="font-family: Verdana; color: #fff; background-color: rgba(0, 0, 0, 0.3); padding-right: 10px; padding-left: 10px; font-size: 3.4em; margin-top: 0.5%;"> je5 Drag and Drop</h1>
+<div style="padding:10px;font-family: Verdana; color: #fff; background-color: rgba(0, 0, 0, 0.3);width:100px;"> <a href="http://je5.es" style="color:#fff"> je5</a><br /><a id="code" href="" style="color:#fff">View code</a></div>
+<pre style="padding:10px;font-size: 0.7em;word-wrap: break-word;display:none;background-color: rgba(0, 0, 0, 0.5);color:#fff;font-family: Verdana;" id="pre">
+<div>
+
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+	&lt;meta charset="UTF-8"&gt; 
+	&lt;script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"&gt;&lt;/script&gt;
+	&lt;script src="http://je5.es/js/plugin-jquery/plugin-jquery-je5-beta.0.2.1.js"&gt;&lt;/script&gt;
+
+&lt;/head&gt;
+&lt;body&gt;
+	&lt;img src="http://www.je5.es/img/1.jpg" id="1" style="width:300px; top:100px; left:100px; position:absolute" /&gt;
+	&lt;img src="http://www.je5.es/img/2.jpg" id="2" style="width:300px; top:150px; left:150px; position:absolute" /&gt;
+	&lt;img src="http://www.je5.es/img/3.jpg" id="3" style="width:300px; top:200px; left:200px; position:absolute" /&gt;
+&lt;h1 style="font-family: Verdana; color: #fff; background-color: rgba(0, 0, 0, 0.3); padding-right: 10px; padding-left: 10px; font-size: 3.4em; margin-top: 0.5%;"&gt; je5 Drag and Drop%&lt;/h1&gt;
+	&lt;script&gt;
+		$('#1').je5({ 
+			sort:'dragDrop' 
+		});
+		$('#2').je5({ 
+			sort:'dragDrop' 
+		});
+		$('#3').je5({ 
+			sort:'dragDrop' 
+		});
+	&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</div>
+</pre>
+	<script>
+		$('#1').je5({ 
+			sort:'dragDrop' 
+		});
+		$('#2').je5({ 
+			sort:'dragDrop' 
+		});
+		$('#3').je5({ 
+			sort:'dragDrop' 
+		});
+
+	$( document ).ready(function() {
+		$('#code').click(function(){ 
+			if($('#code').html() == 'View code') {
+				$('#pre').fadeIn('slow');
+				$('#code').html('Hide code');
+				return false;
+			} else {
+				$('#pre').fadeOut('slow');
+				$('#code').html('View code');	
+				return false;
+			}
+		});
+	});
+	</script>
+</body>
+</html>
