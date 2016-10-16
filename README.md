@@ -1,8 +1,6 @@
 je5
 ==========
 
-Save Cam Captures
-
 En este ejemplo añadimos la clase Drag and Drop a je5
 
 Con la función getBrowser():
@@ -42,6 +40,7 @@ movingOrder()
 &lt;/html&gt;
 </pre>
 
+Save Cam Captures
 
 En esta ocasión capturamos las imágenes de la web cam y las guardamos en una base de datos.
 
