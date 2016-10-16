@@ -3,6 +3,46 @@ je5
 
 Save Cam Captures
 
+En este ejemplo añadimos la clase Drag and Drop a je5
+
+Con la función getBrowser():
+Capturamos el tipo de navegador.
+
+Iniciamos con startNow():
+Una vez capturado la posición del cursor Llamamos a los métodos:
+moving()
+movingOrder()
+
+<pre>
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+	&lt;meta charset="UTF-8"&gt; 
+	&lt;script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"&gt;&lt;/script&gt;
+	&lt;script src="http://je5.es/js/plugin-jquery/plugin-jquery-je5-beta.0.2.1.js"&gt;&lt;/script&gt;
+
+&lt;/head&gt;
+&lt;body&gt;
+	&lt;img src="http://www.je5.es/img/1.jpg" id="1" style="width:300px; top:100px; left:100px; position:absolute" /&gt;
+	&lt;img src="http://www.je5.es/img/2.jpg" id="2" style="width:300px; top:150px; left:150px; position:absolute" /&gt;
+	&lt;img src="http://www.je5.es/img/3.jpg" id="3" style="width:300px; top:200px; left:200px; position:absolute" /&gt;
+&lt;h1 style="font-family: Verdana; color: #fff; background-color: rgba(0, 0, 0, 0.3); padding-right: 10px; padding-left: 10px; font-size: 3.4em; margin-top: 0.5%;"&gt; je5 Drag and Drop%&lt;/h1&gt;
+	&lt;script&gt;
+		$('#1').je5({ 
+			sort:'dragDrop' 
+		});
+		$('#2').je5({ 
+			sort:'dragDrop' 
+		});
+		$('#3').je5({ 
+			sort:'dragDrop' 
+		});
+	&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+
+
 En esta ocasión capturamos las imágenes de la web cam y las guardamos en una base de datos.
 
 https://github.com/jschaves/je5/tree/master/examples/save_cam_captures
