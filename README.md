@@ -17,13 +17,13 @@ movingOrder()
 &lt;head&gt;
 	&lt;meta charset="UTF-8"&gt; 
 	&lt;script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"&gt;&lt;/script&gt;
-	&lt;script src="http://je5.es/js/plugin-jquery/plugin-jquery-je5-beta.0.2.1.js"&gt;&lt;/script&gt;
+	&lt;script src="https://je5.es/js/plugin-jquery/plugin-jquery-je5-beta.0.2.1.js"&gt;&lt;/script&gt;
 
 &lt;/head&gt;
 &lt;body&gt;
-	&lt;img src="http://www.je5.es/img/1.jpg" id="1" style="width:300px; top:100px; left:100px; position:absolute" /&gt;
-	&lt;img src="http://www.je5.es/img/2.jpg" id="2" style="width:300px; top:150px; left:150px; position:absolute" /&gt;
-	&lt;img src="http://www.je5.es/img/3.jpg" id="3" style="width:300px; top:200px; left:200px; position:absolute" /&gt;
+	&lt;img src="https://www.je5.es/img/1.jpg" id="1" style="width:300px; top:100px; left:100px; position:absolute" /&gt;
+	&lt;img src="https://www.je5.es/img/2.jpg" id="2" style="width:300px; top:150px; left:150px; position:absolute" /&gt;
+	&lt;img src="https://www.je5.es/img/3.jpg" id="3" style="width:300px; top:200px; left:200px; position:absolute" /&gt;
 &lt;h1 style="font-family: Verdana; color: #fff; background-color: rgba(0, 0, 0, 0.3); padding-right: 10px; padding-left: 10px; font-size: 3.4em; margin-top: 0.5%;"&gt; je5 Drag and Drop%&lt;/h1&gt;
 	&lt;script&gt;
 		$('#1').je5({ 
@@ -74,7 +74,7 @@ El objeto "media" con el valor capture es el encargado de activar la webcam
      setInterval(
          function () {
              document.getElementById('cap').click();
-             $.post('http://localhost:8000/capture',{
+             $.post('https://localhost:8000/capture',{
                  img:dataStreaming
              }, function(data, textStatus, jqXHR) {
                  console.log(data);
@@ -93,13 +93,13 @@ El objeto "capture.scale" determina el tamaño de la imagen a capturar
 
 Los objetos "capture.x" y "capture.y" determina la posición de inicio de la imagen
 
-La función "setInterval" determinamos el tiempo que transcurre de una captura a otra y guardamos en la base de datos mediante la llamada al servidor http://localhost:8000/capture
+La función "setInterval" determinamos el tiempo que transcurre de una captura a otra y guardamos en la base de datos mediante la llamada al servidor https://localhost:8000/capture
 
 Hay que crear una tabla ejemplo archivo db.sql
 
 Lanzar el servidor con capture.js
 
-Para ver capturas lanzar otro servidor con view.js http://localhost:8001/view
+Para ver capturas lanzar otro servidor con view.js https://localhost:8001/view
 
 Hay otro ejemplo en php https://github.com/jschaves/je5/tree/master/examples/save_cam_captures/php
 
@@ -114,14 +114,14 @@ Hay otro ejemplo en php https://github.com/jschaves/je5/tree/master/examples/sav
 Audio, video, webcam, Stats
 
 Code example je5 Background Animate 100%
-<a href="http://je5.es/je5-background-animate-100.html">Demo "je5 Background Animate 100%"</a>
+<a href="https://je5.es/je5-background-animate-100.html">Demo "je5 Background Animate 100%"</a>
 <pre>
 &lt;!DOCTYPE html&gt;
 &lt;html&gt;
 &lt;head&gt;
 	&lt;meta charset="UTF-8"&gt; 
 	&lt;script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"&gt;&lt;/script&gt;
-	&lt;script src="http://je5.es/js/plugin-jquery/plugin-jquery-je5-beta.0.2.1.js"&gt;&lt;/script&gt;
+	&lt;script src="https://je5.es/js/plugin-jquery/plugin-jquery-je5-beta.0.2.1.js"&gt;&lt;/script&gt;
 
 &lt;/head&gt;
 &lt;body&gt;
@@ -134,14 +134,14 @@ Code example je5 Background Animate 100%
 			type:'css',
 			//frames
 			src:[
-				'http://je5.es/images/img-frames/1.png', 
-				'http://je5.es/images/img-frames/2.png', 
-				'http://je5.es/images/img-frames/3.png',
-				'http://je5.es/images/img-frames/4.png', 
-				'http://je5.es/images/img-frames/5.png', 
-				'http://je5.es/images/img-frames/6.png',
-				'http://je5.es/images/img-frames/7.png', 
-				'http://je5.es/images/img-frames/8.png'
+				'https://je5.es/images/img-frames/1.png', 
+				'https://je5.es/images/img-frames/2.png', 
+				'https://je5.es/images/img-frames/3.png',
+				'https://je5.es/images/img-frames/4.png', 
+				'https://je5.es/images/img-frames/5.png', 
+				'https://je5.es/images/img-frames/6.png',
+				'https://je5.es/images/img-frames/7.png', 
+				'https://je5.es/images/img-frames/8.png'
 			],
 			change:{//optinal only animation mode
 				time:160,//Time-out to next frame in ms
@@ -155,15 +155,15 @@ Code example je5 Background Animate 100%
 </pre>
 
 Code example Stats Pie Graph
-<a href="http://je5.es/je5-stats-scalable-vector-graphics-stats-pie-graph.html">Demo "Media" Stats Pie Graph</a>
+<a href="https://je5.es/je5-stats-scalable-vector-graphics-stats-pie-graph.html">Demo "Media" Stats Pie Graph</a>
 <pre>
 &lt;!DOCTYPE html&gt;
 &lt;html&gt;
 	&lt;head&gt;
 		&lt;title&gt;je5 "stats" Scalable Vector Graphics stats Pie Graph&lt;/title&gt;&lt;meta charset="UTF-8"&gt;
 
-			&lt;script src="http://code.jquery.com/jquery-latest.min.js"&gt;&lt;/script&gt;
-			&lt;script src="http://je5.es/js/plugin-jquery/plugin-jquery-je5-beta.0.2.1.js"&gt;&lt;/script&gt;
+			&lt;script src="https://code.jquery.com/jquery-latest.min.js"&gt;&lt;/script&gt;
+			&lt;script src="https://je5.es/js/plugin-jquery/plugin-jquery-je5-beta.0.2.1.js"&gt;&lt;/script&gt;
 			&lt;style&gt;
 				svg {
 					 cursor: pointer;
@@ -302,13 +302,13 @@ Code example Stats Pie Graph
 &lt;/html&gt;
 </pre>
 Code example WebCam
-<a href="http://je5.es/plugin-jquery-je5-media-section/jquery-je5-media-plugin-jquery-je5-media-webcam-examples-html.html">Demo "Media" WebCam je5</a>
+<a href="https://je5.es/plugin-jquery-je5-media-section/jquery-je5-media-plugin-jquery-je5-media-webcam-examples-html.html">Demo "Media" WebCam je5</a>
 <pre>
 &lt;!DOCTYPE html&gt;
 &lt;html&gt;
   &lt;head&gt;
-    &lt;script src="http://code.jquery.com/jquery-latest.min.js"&gt;&lt;/script&gt;
-    &lt;script src="http://je5.es/js/plugin-jquery/plugin-jquery-je5-beta.0.2.1.js"&gt;&lt;/script&gt;  
+    &lt;script src="https://code.jquery.com/jquery-latest.min.js"&gt;&lt;/script&gt;
+    &lt;script src="https://je5.es/js/plugin-jquery/plugin-jquery-je5-beta.0.2.1.js"&gt;&lt;/script&gt;  
     &lt;title&gt;Instant video and webcam with JE5 "MEDIA"&lt;/title&gt;
     &lt;meta charset="utf8"&gt;
   &lt;/head&gt;
@@ -352,4 +352,4 @@ $('#video').je5({
 </pre>
 
 Mores examples:
-<a href="http://je5.es">je5 site</a>
+<a href="https://je5.es">je5 site</a>
