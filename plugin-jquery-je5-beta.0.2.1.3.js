@@ -29,7 +29,7 @@
 			}
 			//If getUserMedia the stream we collect is displayed.
 			function ok(stream) {
-				cam.src = window.URL.createObjectURL(stream);
+				video.srcObject = stream;
 			}
 			//Error alert
 			function errors() {
